@@ -1,10 +1,34 @@
-#!/usr/bin/env bash
-# read numbers from file given as and prints his factor
+#!/usr/bin/python3
+""" factorize all numbers"""
 
-FILE=$1
+import sys
+import math
 
-while read NUM
-do
-	factors=($(factor $NUM))
-	echo "$NUM=$(($NUM/${factors[1]}))*${factors[1]}"
-done < $FILE
+
+def factorize():
+    """Factorize as many numbers as posible"""
+
+    if len(sys.argv) != 2:
+        print("wrong lenght")
+        return
+    with open(sys.argv[1], 'r') as f:
+        f = f.readlines()
+        for number in f:
+            num = num2 = int(number)
+            if num < 2:
+                return
+            if (num % 2 == 0):
+                a = int(num / 2)
+                num = 2
+                string = "{}={}*{}"
+                print(string.format(int(num2), int(a), int(num)))
+            else:
+                squ = int(math.sqrt(num2) + 1)
+                for a in range(3, squ):
+                    if (num % a == 0):
+                        num = int(num / a)
+                        string = "{}={}*{}"
+                        print(string.format(int(num2), int(num), int(a)))
+                        break
+if __name__ == "__main__":
+    factorize()
